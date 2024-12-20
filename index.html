@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SyncBot</title>
+  
+  <link rel="icon" href="pic.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="pic.png" alt="SyncBot Icon" class="logo-icon">
+        <a href="#">SyncBot</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#subscription">Subscription</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="hero" id="home">
+    <div class="welcome-container">
+      <img src="pic.png" alt="SyncBot" class="welcome-image">
+      <h1 class="welcome-text">Welcome to SyncBot Dashboard</h1>
+    </div>
+    <button class="button" onclick="window.location.href='https://discord.com/oauth2/authorize?client_id=1318631556998238339&scope=bot&permissions=BOT_PERMISSIONS'">Invite SyncBot to Your Server</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <h2>Servers</h2>
+      <p id="servers">Loading...</p>
+    </div>
+    <div class="stat-card">
+      <h2>Online Members</h2>
+      <p id="online">Loading...</p>
+    </div>
+  </div>
+
+  <div class="subscription" id="subscription">
+    <h2>Unlock Premium Features</h2>
+    <p>Get advanced tools and full customization with SyncBot Premium.</p>
+    <button class="button">Subscribe Now</button>
+  </div>
+
+  <div class="contact" id="contact">
+    <h2>Contact Us</h2>
+    <p>We'd love to hear from you! Reach out for any questions.</p>
+    <button class="button" onclick="window.location.href='https://discord.gg/2ay55XfUvF'">Get In Touch</button>
+  </div>
+
+  <script>
+    
+    async function fetchBotStats() {
+      try {
+        const response = await fetch('/stats');  
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const data = await response.json();  
+        document.getElementById('servers').innerText = data.servers;  
+        document.getElementById('online').innerText = data.onlineMembers;  
+      } catch (error) {
+        console.error('Error fetching bot stats:', error);
+        document.getElementById('servers').innerText = 'Error loading data';
+        document.getElementById('online').innerText = 'Error loading data';
+      }
+    }
+
+    
+    fetchBotStats();
+  </script>
+  
+</body>
+</html>
